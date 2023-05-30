@@ -8,7 +8,7 @@ app.engine('hbs', handlebars.engine({
     extname: 'hbs'
 }));
 app.set('view engine', 'hbs');
-app.set('views', 'src/views');
+app.set('views', 'src/views');                      // added, because views folder is in src dir, not root dir
 
 app.get('/', (req, res) => {
     res.render('index');
