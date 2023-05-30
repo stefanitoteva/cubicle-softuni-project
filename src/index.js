@@ -1,17 +1,14 @@
 const express = require('express');
-const handlebars = require('express-handlebars');
-const path = require('path');
-
-const app = express();
 const PORT = 3000;
 
-app.use(express.static(path.resolve(__dirname, 'public')));
+const expressConfigurator = require('./config/expressConfig');
+const hbsConfigurator = require('./config/hbsConfig');
 
-app.engine('hbs', handlebars.engine({
-    extname: 'hbs'
-}));
-app.set('view engine', 'hbs');
-app.set('views', 'src/views');                      // added, because views folder is in src dir, not root dir
+const app = express();
+
+expressConfigurator(app);
+hbsConfigurator(app);
+
 
 app.get('/', (req, res) => {
     res.render('index');
