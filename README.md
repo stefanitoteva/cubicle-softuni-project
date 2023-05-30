@@ -1,2 +1,2 @@
-# cubicle-sofutni-project
+# cubicle-softuni-project
 Softuni Course Project
