@@ -3,6 +3,7 @@ const PORT = 3000;
 
 const expressConfigurator = require('./config/expressConfig');
 const hbsConfigurator = require('./config/hbsConfig');
+const homeController = require('./controllers/homeController');
 
 const app = express();
 
@@ -10,8 +11,6 @@ expressConfigurator(app);
 hbsConfigurator(app);
 
 
-app.get('/', (req, res) => {
-    res.render('index');
-})
+app.use(homeController);
 
 app.listen(PORT, () => console.log(`The server is running on port ${PORT}...`));
