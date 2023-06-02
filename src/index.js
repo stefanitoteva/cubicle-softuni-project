@@ -3,19 +3,13 @@ const PORT = 3000;
 
 const expressConfigurator = require('./config/expressConfig');
 const hbsConfigurator = require('./config/hbsConfig');
-const homeController = require('./controllers/homeController');
-const cubeController = require('./controllers/cubeController');
+const routes = require('./router');
+
 
 const app = express();
 
 expressConfigurator(app);
 hbsConfigurator(app);
-
-
-app.use(homeController);
-app.use('/cubes', cubeController);
-app.use('*', (req, res) => {
-    res.redirect('/404');
-})
+app.use(routes);
 
 app.listen(PORT, () => console.log(`The server is running on port ${PORT}...`));
