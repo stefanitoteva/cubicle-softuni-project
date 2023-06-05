@@ -10,7 +10,7 @@ const routes = require('./router');
 const app = express();
 
 mongooseConnect()
-    .then(() => console.log('DB is connected!'))
+    .then(() => console.log('DB is connected successfully!'))
     .catch(err => console.log(`DB error: ${err}`));
 expressConfigurator(app);
 hbsConfigurator(app);
