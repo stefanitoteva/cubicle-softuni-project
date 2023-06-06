@@ -4,24 +4,29 @@ exports.getAll = async (search, from, to) => {
     let result = await Cube.find().lean();
 
     if (search) {
-        result = result.filter(cube => cube.name.toLowerCase().includes(search.toLowerCase()));
+        result = await Cube.find({ name: { $regex: search, $options: "i" } }).lean();
     }
 
+
     if (from) {
-        result = result.filter(cube => cube.difficultyLevel >= Number(from));
+        result = await Cube.find({ difficultyLevel: { $gte: from } }).lean();
     }
 
     if (to) {
-        result = result.filter(cube => cube.difficultyLevel <= Number(to));
+        result = await Cube.find({ difficultyLevel: { $lte: to } }).lean();
     }
 
+
+    if (from && to) {
+        result = await Cube.find({ $and: [{ difficultyLevel: { $gte: from } }, { difficultyLevel: { $lte: to } }] }).lean();
+    }
     return result
 }
 
 exports.getOne = (cubeId) => Cube.findById(cubeId).populate('accessories');
 
 exports.attachAccessory = (cubeId, accessoryId) => {
-    return Cube.findByIdAndUpdate(cubeId, {$push: {accessories: accessoryId}});
+    return Cube.findByIdAndUpdate(cubeId, { $push: { accessories: accessoryId } });
 }
 
 exports.create = (cubeData) => {
