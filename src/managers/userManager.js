@@ -4,7 +4,7 @@ const bcrypt = require('bcrypt');
 exports.register = (username, password, repeatPassword) => User.create({ username, password, repeatPassword });
 
 exports.login = async (username, password) => {
-    const user = await User.findOne({username});
+    const user = await User.findOne({ username });
 
     if(!user) {
         throw new Error('Username or password is not valid!');
@@ -15,4 +15,6 @@ exports.login = async (username, password) => {
     if(!isValid) {
         throw new Error('Username or passowrd is not valid!');
     }
+
+    return user
 }
