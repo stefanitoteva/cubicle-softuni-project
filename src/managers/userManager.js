@@ -1,5 +1,8 @@
 const User = require("../models/User");
 const bcrypt = require('bcrypt');
+const jwt = require('../lib/jwt');
+
+const SECRET = "testsecretihopeitworksiamtryingmybestplswork"
 
 exports.register = (username, password, repeatPassword) => User.create({ username, password, repeatPassword });
 
@@ -16,5 +19,12 @@ exports.login = async (username, password) => {
         throw new Error('Username or passowrd is not valid!');
     }
 
-    return user
+    const payload = {
+        "_id": user._id,
+        "username": user.username,
+    }
+
+    const token = await jwt.sign(payload, SECRET, {expiresIn: "2d"});
+
+    return token
 }
