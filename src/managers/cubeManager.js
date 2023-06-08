@@ -16,7 +16,6 @@ exports.getAll = async (search, from, to) => {
         result = await Cube.find({ difficultyLevel: { $lte: to } }).lean();
     }
 
-
     if (from && to) {
         result = await Cube.find({ $and: [{ difficultyLevel: { $gte: from } }, { difficultyLevel: { $lte: to } }] }).lean();
     }
