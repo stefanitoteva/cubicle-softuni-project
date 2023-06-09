@@ -24,10 +24,12 @@ exports.getAll = async (search, from, to) => {
 
 exports.getOne = (cubeId) => Cube.findById(cubeId).populate('accessories');
 
-exports.attachAccessory = (cubeId, accessoryId) => {
-    return Cube.findByIdAndUpdate(cubeId, { $push: { accessories: accessoryId } });
-}
-
 exports.create = (cubeData) => {
     Cube.create(cubeData);
 };
+
+exports.delete = (cubeId) => Cube.findByIdAndDelete(cubeId);
+
+exports.attachAccessory = (cubeId, accessoryId) => {
+    return Cube.findByIdAndUpdate(cubeId, { $push: { accessories: accessoryId } });
+}
